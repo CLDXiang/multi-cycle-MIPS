@@ -1,12 +1,12 @@
 `timescale 1ns / 1ps
 
 module maindec(
-        input logic clk, reset,
-        input logic [5:0] op,
-        output logic pcwrite, memwrite, irwrite, regwrite,
-        output logic alusrca, branch, iord, memtoreg, regdst,
-        output logic [1:0] alusrcb, pcsrc,
-        output logic [1:0] aluop
+    input logic clk, reset,
+    input logic [5:0] op,
+    output logic pcwrite, memwrite, irwrite, regwrite,
+    output logic alusrca, branch, iord, memtoreg, regdst,
+    output logic [1:0] alusrcb, pcsrc,
+    output logic [1:0] aluop
     );
     /* State */
     parameter FETCH = 4'b0000; // 0

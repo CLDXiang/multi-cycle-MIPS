@@ -24,7 +24,7 @@ module maindec(
 
     /* Opcode */
     parameter LW = 6'b100011;
-    parameter Sw = 6'b101011;
+    parameter SW = 6'b101011;
     parameter RTYPE = 6'b000000;
     parameter BEQ = 6'b000100;
     parameter ADDI = 6'b001000;

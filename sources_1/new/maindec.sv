@@ -5,7 +5,8 @@ module maindec(
     input logic [5:0] op,
     output logic pcwrite, memwrite, irwrite, regwrite,
     output logic alusrca, branch, iord, memtoreg, regdst,
-    output logic [1:0] alusrcb, pcsrc,
+    output logic [1:0] alusrcb, 
+    output logic pcsrc,
     output logic [1:0] aluop
     );
     /* State */

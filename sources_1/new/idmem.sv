@@ -7,7 +7,7 @@ module idmem(
     );
 
     logic [31:0] RAM[1023:0];
-    assign rd = RAM[a[31:2]];
+    
 
     initial
         $readmemh("memfile.dat", RAM);
@@ -15,7 +15,8 @@ module idmem(
 //        $readmemh("memfile_ori.dat", RAM);
 //        $readmemh("memfile_andi.dat", RAM);
 //        $readmemh("memfile_bne.dat", RAM);
-    assign rd = RAM[a[9:2]]; // TODO: fix imem
+    // assign rd = RAM[a[9:2]]; // TODO: fix imem
+    assign rd = RAM[a[31:2]];
     
     always_ff @(posedge clk)
         if (we) RAM[a[31:2]] <= wd;

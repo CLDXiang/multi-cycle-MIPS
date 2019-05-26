@@ -4,18 +4,22 @@ module datapath(
     input logic clk, reset,
     input logic memtoreg, regdst, iord, pcsrc,
     input logic [1:0] alusrcb,
-    input logic alusrca, irwrite, memwrite, pcen,
+    input logic alusrca, irwrite, pcen,
     input logic regwrite,
     input logic [1:0] aluop,
     input logic [2:0] alucontrol,
-    output logic [5:0] opcode, funct,
-    output logic zero
+    // output logic [5:0] opcode, funct,
+    output logic zero,
+    // output logic [31:0] pc,
+    input logic [31:0] instr,
+    output logic [31:0] adr, b,
+    input logic [31:0] readData
     );
 
     logic [31:0] pc, pcnext;
-    logic [31:0] adr, aluout;
-    logic [31:0] a, b;
-    logic [31:0] readData, instr, data;
+    logic [31:0] aluout;
+    logic [31:0] a;
+    logic [31:0] data;
     logic [4:0] a3;
     logic [31:0] wd3, rd1, rd2;
     logic [31:0] signimm, immsh;
@@ -25,7 +29,7 @@ module datapath(
     flopenr #(32) pcreg(clk, reset, pcen, pcnext, pc);
     mux2 #(32) pcmux(pc, aluout, iord, adr);
 
-    idmem idmem(clk, memwrite, adr, b, readData);
+    // idmem idmem(clk, memwrite, adr, b, readData);
 
     flopenr #(32) instrreg(clk, reset, irwrite, readData, instr);
     flopr #(32) datareg(clk, reset, readData, data);

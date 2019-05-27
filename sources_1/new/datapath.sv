@@ -13,7 +13,8 @@ module datapath(
     output logic [31:0] pc,
     input logic [31:0] instr,
     output logic [31:0] adr, b,
-    input logic [31:0] readData
+    input logic [31:0] readData,
+    input logic immext
     );
 
     logic [31:0] pcnext;
@@ -25,6 +26,7 @@ module datapath(
     logic [31:0] signimm, immsh;
     logic [31:0] srca, srcb;
     logic [31:0] aluresult, pcjump;
+    logic [31:0] zeroimm, imm;
     // logic [31:0] instr;
 
     flopenr #(32) pcreg(clk, reset, pcen, pcnext, pc);
@@ -39,13 +41,15 @@ module datapath(
 
     regfile rf(clk, regwrite, instr[25:21], instr[20:16], a3, wd3, rd1, rd2);
     signext se(instr[15:0], signimm);
+    ze ze(instr[15:0], zeroimm);
     sl2 sl(signimm, immsh);
+    mux2 #(32) extmux(signimm, zeroimm, immext, imm);
 
     flopr #(32) rd1reg(clk, reset, rd1, a);
     flopr #(32) rd2reg(clk, reset, rd2, b);
 
     mux2 #(32) srcamux(pc, a, alusrca, srca);
-    mux4 #(32) srcbmux(b, 32'b100, signimm, immsh, alusrcb, srcb);
+    mux4 #(32) srcbmux(b, 32'b100, imm, immsh, alusrcb, srcb);
 
     assign pcjump = {pc[31:28], instr[25:0], 2'b00};
     alu alu(srca, srcb, alucontrol, aluresult, zero);

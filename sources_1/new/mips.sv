@@ -17,11 +17,12 @@ module mips(
     logic regwrite;
     logic [2:0] alucontrol;
     logic [31:0] instr;
+    logic immext;
 
     controller c(clk, reset, instr[31:26], instr[5:0], zero, memtoreg, regdst, iord, pcsrc,
-        alusrcb, alusrca, irwrite, memwrite, pcen, regwrite, alucontrol);
+        alusrcb, alusrca, irwrite, memwrite, pcen, regwrite, alucontrol, immext);
     datapath dp(clk, reset, memtoreg, regdst, iord, pcsrc, alusrcb, alusrca, irwrite,
-        pcen, regwrite, alucontrol, zero, pc, instr, adr, b, readData);
+        pcen, regwrite, alucontrol, zero, pc, instr, adr, b, readData, immext);
 
     flopenr #(32) instrreg(clk, reset, irwrite, readData, instr);
 endmodule

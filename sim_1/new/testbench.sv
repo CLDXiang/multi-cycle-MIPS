@@ -25,9 +25,9 @@ module testbench();
     always @(negedge clk)
         begin
             if (memwrite) begin
-                if (dataadr === 84 & writedata === 7) begin // test/test_bne
+                // if (dataadr === 84 & writedata === 7) begin // test/test_bne
 //                if (dataadr === 84 & writedata === 16'b0101111100111111) begin // test ori
-//                if (dataadr === 84 & writedata === 16'b0000001100010000) begin // test andi
+               if (dataadr === 84 & writedata === 16'b0000001100010000) begin // test andi
                     $display("Simulation succeeded");
                     $stop;
                 end

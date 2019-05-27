@@ -9,14 +9,15 @@ module controller(
     output logic [1:0] alusrcb,
     output logic alusrca, irwrite, memwrite, pcen,
     output logic regwrite,
-    output logic [2:0] alucontrol
+    output logic [2:0] alucontrol,
+    output logic immext
     );
 
     logic branch, pcwrite;
     logic [1:0] aluop;
 
     maindec md(clk, reset, opcode, pcwrite, memwrite, irwrite, regwrite,
-        alusrca, branch, iord, memtoreg, regdst, alusrcb, pcsrc, aluop);
+        alusrca, branch, iord, memtoreg, regdst, alusrcb, pcsrc, aluop, immext);
     aludec ad(funct, aluop, alucontrol);
 
     assign pcen = (zero & branch) | pcwrite;

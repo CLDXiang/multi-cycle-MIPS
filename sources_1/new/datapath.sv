@@ -11,7 +11,7 @@ module datapath(
     // output logic [5:0] opcode, funct,
     output logic zero,
     output logic [31:0] pc,
-    // input logic [31:0] instr,
+    input logic [31:0] instr,
     output logic [31:0] adr, b,
     input logic [31:0] readData
     );
@@ -25,14 +25,13 @@ module datapath(
     logic [31:0] signimm, immsh;
     logic [31:0] srca, srcb;
     logic [31:0] aluresult, pcjump;
-    logic [31:0] instr;
+    // logic [31:0] instr;
 
     flopenr #(32) pcreg(clk, reset, pcen, pcnext, pc);
     mux2 #(32) pcmux(pc, aluout, iord, adr);
 
     // idmem idmem(clk, memwrite, adr, b, readData);
 
-    flopenr #(32) instrreg(clk, reset, irwrite, readData, instr);
     flopr #(32) datareg(clk, reset, readData, data);
 
     mux2 #(5) a3mux(instr[20:16], instr[15:11], regdst, a3);

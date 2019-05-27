@@ -36,10 +36,10 @@ module maindec(
     /* State register */
     always_ff @(posedge clk or posedge reset)
         begin
-           $display(">> Opcode: 0b%b", op);
-           $display(">> pcwrite: %b, memwrite: %b, irwrite: %b, regwrite: %b, alusrca: %b, branch: %b, iord: %b, memtoreg: %b, regdst: %b, alusrcb: %b, pcsrc: %b, aluop: %b", pcwrite, memwrite, irwrite, regwrite, alusrca, branch, iord, memtoreg, regdst, alusrcb, pcsrc, aluop);
-           $display(">> State: %d => %d", state, nextstate);
-           $stop;
+//           $display(">> Opcode: 0b%b", op);
+//           $display(">> pcwrite: %b, memwrite: %b, irwrite: %b, regwrite: %b, alusrca: %b, branch: %b, iord: %b, memtoreg: %b, regdst: %b, alusrcb: %b, pcsrc: %b, aluop: %b", pcwrite, memwrite, irwrite, regwrite, alusrca, branch, iord, memtoreg, regdst, alusrcb, pcsrc, aluop);
+//           $display(">> State: %d => %d", state, nextstate);
+//           $stop;
             if (reset) state <= FETCH;
             else state <= nextstate;
         end

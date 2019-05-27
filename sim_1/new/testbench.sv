@@ -11,15 +11,15 @@ module testbench();
     
     initial
         begin
-            reset <= 1; #22; reset <= 0;
+            reset <= 1; #25; reset <= 0;
         end
         
     always
         begin
             clk <= 1; 
-            #5; 
+            #20; 
             clk <= 0; 
-            #5;
+            #20;
         end
     
     always @(negedge clk)
@@ -30,10 +30,11 @@ module testbench();
 //                if (dataadr === 84 & writedata === 16'b0000001100010000) begin // test andi
                     $display("Simulation succeeded");
                     $stop;
-                end else if (dataadr !== 80) begin
-                    $display("Simulation failed");
-                    $stop;
                 end
+//                 else if (dataadr !== 80) begin
+//                    $display("Simulation failed");
+//                    $stop;
+//                end
             end
         end
         

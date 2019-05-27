@@ -2,11 +2,10 @@
 
 module maindec(
     input logic clk, reset,
-    input logic [5:0] op,
+    input logic [5:0] op, // TODO: fix here, always: op = ob00x000???
     output logic pcwrite, memwrite, irwrite, regwrite,
     output logic alusrca, branch, iord, memtoreg, regdst,
-    output logic [1:0] alusrcb, 
-    output logic pcsrc,
+    output logic [1:0] alusrcb, pcsrc,
     output logic [1:0] aluop
     );
     /* State */
@@ -36,8 +35,14 @@ module maindec(
 
     /* State register */
     always_ff @(posedge clk or posedge reset)
-        if (reset) state <= FETCH;
-        else state <= nextstate;
+        begin
+           $display(">> Opcode: 0b%b", op);
+           $display(">> pcwrite: %b, memwrite: %b, irwrite: %b, regwrite: %b, alusrca: %b, branch: %b, iord: %b, memtoreg: %b, regdst: %b, alusrcb: %b, pcsrc: %b, aluop: %b", pcwrite, memwrite, irwrite, regwrite, alusrca, branch, iord, memtoreg, regdst, alusrcb, pcsrc, aluop);
+           $display(">> State: %d => %d", state, nextstate);
+           $stop;
+            if (reset) state <= FETCH;
+            else state <= nextstate;
+        end
     
     /* Next state logic */
     always_comb case(state)
@@ -74,18 +79,18 @@ module maindec(
             alusrcb, pcsrc, aluop} = controls;
 
     always_comb case(state)
-        FETCH: controls = 15'h5010;
-        DECODE: controls = 15'h0030;
-        MEMADR: controls = 15'h0420;
-        MEMRD: controls = 15'h0100;
-        MEMWB: controls = 15'h0880;
-        MEMWR: controls = 15'h2100;
-        RTYPEEX: controls = 15'h0402;
-        RTYPEWB: controls = 15'h0840;
-        BEQEX: controls = 15'h0605;
-        ADDIEX: controls = 15'h0420;
-        ADDIWB: controls = 15'h0800;
-        JEX: controls = 15'h4008;
-        default: controls = 15'hxxxx;
+         FETCH: controls = 15'h5010;
+         DECODE: controls = 15'h0030;
+         MEMADR: controls = 15'h0420;
+         MEMRD: controls = 15'h0100;
+         MEMWB: controls = 15'h0880;
+         MEMWR: controls = 15'h2100;
+         RTYPEEX: controls = 15'h0402;
+         RTYPEWB: controls = 15'h0840;
+         BEQEX: controls = 15'h0605;
+         ADDIEX: controls = 15'h0420;
+         ADDIWB: controls = 15'h0800;
+         JEX: controls = 15'h4008;
+         default: controls = 15'hxxxx;
     endcase
 endmodule

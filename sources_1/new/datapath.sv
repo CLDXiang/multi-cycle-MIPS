@@ -2,21 +2,21 @@
 
 module datapath(
     input logic clk, reset,
-    input logic memtoreg, regdst, iord, pcsrc,
+    input logic memtoreg, regdst, iord, 
+    input logic [1:0] pcsrc,
     input logic [1:0] alusrcb,
     input logic alusrca, irwrite, pcen,
     input logic regwrite,
-    input logic [1:0] aluop,
     input logic [2:0] alucontrol,
     // output logic [5:0] opcode, funct,
     output logic zero,
-    // output logic [31:0] pc,
-    input logic [31:0] instr,
+    output logic [31:0] pc,
+    // input logic [31:0] instr,
     output logic [31:0] adr, b,
     input logic [31:0] readData
     );
 
-    logic [31:0] pc, pcnext;
+    logic [31:0] pcnext;
     logic [31:0] aluout;
     logic [31:0] a;
     logic [31:0] data;
@@ -24,7 +24,8 @@ module datapath(
     logic [31:0] wd3, rd1, rd2;
     logic [31:0] signimm, immsh;
     logic [31:0] srca, srcb;
-    logic [31:0] aluresult;
+    logic [31:0] aluresult, pcjump;
+    logic [31:0] instr;
 
     flopenr #(32) pcreg(clk, reset, pcen, pcnext, pc);
     mux2 #(32) pcmux(pc, aluout, iord, adr);
@@ -47,9 +48,10 @@ module datapath(
     mux2 #(32) srcamux(pc, a, alusrca, srca);
     mux4 #(32) srcbmux(b, 32'b100, signimm, immsh, alusrcb, srcb);
 
+    assign pcjump = {pc[31:28], instr[25:0], 2'b00};
     alu alu(srca, srcb, alucontrol, aluresult, zero);
     flopr #(32) alureg(clk, reset, aluresult, aluout);
-    mux2 #(32) pcnextreg(aluresult, aluout, pcsrc, pcnext);
+    mux3 #(32) pcnextreg(aluresult, aluout, pcjump, pcsrc, pcnext);
 
 
 endmodule

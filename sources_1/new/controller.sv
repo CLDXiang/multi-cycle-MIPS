@@ -4,15 +4,16 @@ module controller(
     input logic clk, reset,
     input logic [5:0] opcode, funct,
     input logic zero,
-    output logic memtoreg, regdst, iord, pcsrc,
+    output logic memtoreg, regdst, iord, 
+    output logic [1:0] pcsrc,
     output logic [1:0] alusrcb,
     output logic alusrca, irwrite, memwrite, pcen,
     output logic regwrite,
-    output logic [1:0] aluop,
     output logic [2:0] alucontrol
     );
 
     logic branch, pcwrite;
+    logic [1:0] aluop;
 
     maindec md(clk, reset, opcode, pcwrite, memwrite, irwrite, regwrite,
         alusrca, branch, iord, memtoreg, regdst, alusrcb, pcsrc, aluop);

@@ -9,6 +9,6 @@ module flopenr #(parameter WIDTH = 8)
     );
 
     always_ff @(posedge clk, posedge reset)
-        if (reset) q <= 0;
+        if (reset) q <= 32'b0;
         else if (en) q <= d;
 endmodule

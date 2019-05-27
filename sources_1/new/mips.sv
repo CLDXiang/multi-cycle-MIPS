@@ -2,22 +2,24 @@
 
 module mips(
     input logic clk, reset,
+    output logic [31:0] pc,
+    // input logic [31:0] instr,
     output logic memwrite,
     output logic [31:0] adr, b,
     input logic [31:0] readData
     );
     // TODO: separate mips and idmem
     logic zero;
-    logic memtoreg, regdst, iord, pcsrc;
+    logic memtoreg, regdst, iord;
+    logic [1:0] pcsrc;
     logic [1:0] alusrcb;
     logic alusrca, irwrite, pcen;
     logic regwrite;
-    logic [1:0] aluop;
     logic [2:0] alucontrol;
-    logic [31:0] instr;
+    // logic [31:0] instr;
 
-    controller c(clk, reset, instr[31:26], instr[5:0], zero, memtoreg, regdst, iord, pcsrc,
-        alusrcb, alusrca, irwrite, memwrite, pcen, regwrite, aluop, alucontrol);
+    controller c(clk, reset, readData[31:26], readData[5:0], zero, memtoreg, regdst, iord, pcsrc,
+        alusrcb, alusrca, irwrite, memwrite, pcen, regwrite, alucontrol);
     datapath dp(clk, reset, memtoreg, regdst, iord, pcsrc, alusrcb, alusrca, irwrite,
-        pcen, regwrite, aluop, alucontrol, zero, instr, adr, b, readData);
+        pcen, regwrite, alucontrol, zero, pc, adr, b, readData);
 endmodule

@@ -10,12 +10,9 @@ module idmem(
     
 
     initial
-        $readmemh("memfile.dat", RAM);
-    //    $readmemh("memfile_src.dat", RAM);
-//        $readmemh("memfile_ori.dat", RAM);
-    //    $readmemh("memfile_andi.dat", RAM);
-//        $readmemh("memfile_bne.dat", RAM);
-    // assign rd = RAM[a[9:2]]; // TODO: fix imem
+//        $readmemh("memfile.dat", RAM);
+//        $readmemh("memfile_src.dat", RAM);
+        $readmemh("memfile_andi.dat", RAM);
     assign rd = RAM[a[31:2]];
     
     always_ff @(posedge clk)

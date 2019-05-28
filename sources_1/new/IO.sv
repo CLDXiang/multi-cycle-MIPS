@@ -20,7 +20,7 @@ module IO(
     always_ff @(addr) begin
         if (pRead) begin
                 case(addr)
-                    2'b11: pReadData <= {24'b0, switch1[15:8]}; // error here
+                    2'b11: pReadData <= {24'b0, switch1[15:8]};
                     2'b10: pReadData <= {24'b0, switch1[7:0]};
                     2'b00: pReadData <= {24'b0, 6'b000000, status};
                     default: pReadData <= 32'b0;

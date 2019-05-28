@@ -21,7 +21,6 @@ module memoryDecoder(
     assign mWrite = writeEN & (addr[7] == 1'b0);
 
     idmem idmem(clk, writeEN, addr, writedata, readData1);
-    // dmem dmem(clk, writeEN, addr, writeData, readData1);
     IO io(clk, reset, pRead, pWrite, addr[3:2], writeData, readData2, btnL, btnR, switch, led);
     sevenseg sevenseg(clk, reset, {switch, 4'b0000, led}, AN, DP, A2G);
     

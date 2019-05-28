@@ -14,7 +14,7 @@ module testbench_IO();
     logic memwrite;
     
     mips mips(clk, BTNC, pc, memwrite, adr, writedata, readdata);
-    memoryDecoder dmdec(clk, memwrite, adr, writedata, readdata, BTNC, BTNL, BTNR, SW, AN, DP, A2G);
+    memoryDecoder mdec(clk, memwrite, adr, writedata, readdata, BTNC, BTNL, BTNR, SW, AN, DP, A2G);
     
     initial
         begin

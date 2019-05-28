@@ -2,7 +2,7 @@
 
 module maindec(
     input logic clk, reset,
-    input logic [5:0] op, // TODO: fix here, always: op = ob00x000???
+    input logic [5:0] op,
     output logic pcwrite, memwrite, irwrite, regwrite,
     output logic alusrca, branch, iord, memtoreg, regdst,
     output logic [1:0] alusrcb, pcsrc,

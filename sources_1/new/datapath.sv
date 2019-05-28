@@ -8,7 +8,6 @@ module datapath(
     input logic alusrca, irwrite, pcen,
     input logic regwrite,
     input logic [2:0] alucontrol,
-    // output logic [5:0] opcode, funct,
     output logic zero,
     output logic [31:0] pc,
     input logic [31:0] instr,
@@ -27,12 +26,9 @@ module datapath(
     logic [31:0] srca, srcb;
     logic [31:0] aluresult, pcjump;
     logic [31:0] zeroimm, imm;
-    // logic [31:0] instr;
 
     flopenr #(32) pcreg(clk, reset, pcen, pcnext, pc);
     mux2 #(32) pcmux(pc, aluout, iord, adr);
-
-    // idmem idmem(clk, memwrite, adr, b, readData);
 
     flopr #(32) datareg(clk, reset, readData, data);
 

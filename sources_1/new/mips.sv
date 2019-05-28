@@ -3,12 +3,10 @@
 module mips(
     input logic clk, reset,
     output logic [31:0] pc,
-    // input logic [31:0] instr,
     output logic memwrite,
     output logic [31:0] adr, b,
     input logic [31:0] readData
     );
-    // TODO: separate mips and idmem
     logic zero;
     logic memtoreg, regdst, iord;
     logic [1:0] pcsrc;

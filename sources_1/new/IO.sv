@@ -11,7 +11,8 @@ module IO(
     input logic buttonL,
     input logic buttonR,
     input logic [15:0] switch,
-    output logic [11:0] led
+    output logic [11:0] led,
+    output logic sign
     );
     logic [1:0] status;
     logic [15:0] switch1;
@@ -44,7 +45,8 @@ module IO(
                 led <= led1;
             end
             if (pWrite & (addr == 2'b01)) begin
-                led1 <= pWriteData[11:0];
+                led1 <= (pWriteData[11] == 1'b1 ? (~pWriteData[11:0] + 12'b1) : pWriteData[11:0]);
+                sign <= pWriteData[11];
                 status[0] <= 0;
             end
             
